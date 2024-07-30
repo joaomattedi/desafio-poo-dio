@@ -1,6 +1,7 @@
 package br.com.dio.desafio.dominio;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Dev {
     private String nome;
@@ -10,6 +11,10 @@ public class Dev {
     public void inscreverBootcamp(Bootcamp bootcamp){
         this.conteudosInscritos.addAll(bootcamp.getConteudos());
         bootcamp.getDevsInscritos().add(this);
+    }
+
+    public void inscreverCurso(Curso curso) {
+        this.conteudosInscritos.add(curso);
     }
 
     public void progredir() {
@@ -73,5 +78,12 @@ public class Dev {
     @Override
     public int hashCode() {
         return Objects.hash(nome, conteudosInscritos, conteudosConcluidos);
+    }
+
+    public String toString() {
+        return "Dev{" +
+                "conteudos='" + conteudosInscritos.stream().map(conteudo -> conteudo.getTitulo()).collect(Collectors.joining("', '"))
+                + "'" +
+                '}';
     }
 }
